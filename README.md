@@ -8,6 +8,10 @@ ViteJS compatibility for Wordpress development
 
 <br/>
 
+Inspired by https://github.com/blonestar/wp-theme-vite-tailwind and https://github.com/andrefelipe/vite-php-setup
+
+<br/>
+
 ## Project setup
 
 ### Setup your local develoment environment
