@@ -1,0 +1,3 @@
+webpack.mix.js
+vite.config.js
+**/js/dist/*.js

@@ -1,0 +1,12 @@
+{
+    "authors": [
+        {
+            "name": "MLNOP",
+            "homepage": "https://mlnop.fr",
+            "role": "Main dev"
+        }
+    ],
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "v3.9.6"
+    }
+}
