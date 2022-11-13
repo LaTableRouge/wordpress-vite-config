@@ -4,8 +4,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('THEME_VERSION', time());
-
 require get_stylesheet_directory() . '/inc/vite.php';
 // Front assets
 vite_enqueue_script('assets/js/scripts.js', 'wp_footer', 'wp_enqueue_scripts');

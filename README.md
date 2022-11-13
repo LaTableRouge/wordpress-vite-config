@@ -29,10 +29,7 @@ define( 'IS_VITE_DEVELOPMENT', false );
 
 <br/>
 
-
-## Setup development scripts
-
-### Install dependencies
+## Install dependencies
 
 Éxécuter les commandes suivantes :
 
@@ -42,6 +39,8 @@ npm install && composer install
 
 <br/>
 
+## Setup files
+
 ### File **[vite.config.js](./vite.config.js)** setup
 
 Change the value of `const url` with your local url project, in file [vite.config.js](./vite.config.js).
@@ -49,6 +48,16 @@ Change the value of `const url` with your local url project, in file [vite.confi
 Change the value of `const themeName` with your theme name, in file [vite.config.js](./vite.config.js).
 
 The list of entry files are defined in the [vite.config.js](./vite.config.js) file in the variable "entryFiles".
+
+### File **[functions.php](./wp-content/themes/my-theme/functions.php)** setup
+
+Require the [vite.php](./wp-content/themes/my-theme/inc/vite.php) file.
+
+Call the assets you want to call in your website with the following functions : 
+
+- vite_enqueue_script('path_to_your_asset_script_file', 'hook_when_dev', 'hook_when_prod');
+- vite_enqueue_style('path_to_your_asset_style_file', 'hook_when_dev', 'hook_when_prod');
+- vite_enqueue_style_editor('path_to_your_asset_style-editor_file', 'hook');
 
 <br/>
 

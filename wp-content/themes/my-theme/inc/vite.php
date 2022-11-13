@@ -4,6 +4,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+define('THEME_VERSION', time());
 define('VITE_SERVER', 'http://localhost:5173');
 define('DIST_FOLDER', 'build');
 define('DIST_URI', get_stylesheet_directory_uri() . '/' . DIST_FOLDER);
