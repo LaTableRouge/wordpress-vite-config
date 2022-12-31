@@ -23,6 +23,11 @@ $rules = [
     'cast_spaces' => [
         'space' => 'single'
     ],
+    'class_attributes_separation' => [
+        'elements' => [
+            'trait_import' => 'none'
+        ]
+    ],
     'concat_space' => [
         'spacing' => 'one'
     ],
@@ -58,12 +63,7 @@ $rules = [
         'tokens' => [
             'extra',
             'throw',
-            'use'
-        ]
-    ],
-    'class_attributes_separation' => [
-        'elements' => [
-            'trait_import' => 'none'
+            'use',
         ]
     ],
     'no_mixed_echo_print' => [
@@ -75,7 +75,7 @@ $rules = [
     'no_spaces_after_function_name' => true,
     'no_spaces_around_offset' => true,
     'no_spaces_inside_parenthesis' => true,
-    'no_trailing_comma_in_singleline' => true,
+    'no_trailing_comma_in_singleline_array' => true,
     'no_trailing_whitespace' => true,
     'no_trailing_whitespace_in_comment' => true,
     'no_unneeded_control_parentheses' => true,
@@ -117,4 +117,3 @@ return $config->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)
     ->setUsingCache(true);
-

@@ -2,7 +2,7 @@ import autoprefixer from 'autoprefixer'
 import { defineConfig } from 'vite'
 import { run } from 'vite-plugin-run'
 const { resolve } = require('path')
-const { stringReplaceOpenAndWrite, viteStringReplace } = require("@mlnop/string-replace")
+const { stringReplaceOpenAndWrite, stringReplace } = require("@mlnop/string-replace");
 
 const chore = process.env.npm_config_chore
 const isProduction = process.env.NODE_ENV === 'production'
@@ -45,25 +45,29 @@ const entryFiles = [
   {
     scripts: [
       {
-        name: 'scripts',
+        name: 'front',
         input: `${assetsPath}/js`
       },
       {
-        name: 'wp-admin',
+        name: 'editor',
         input: `${assetsPath}/js`
-      }
+      },
+      {
+        name: 'admin',
+        input: `${assetsPath}/js`
+      },
     ],
     styles: [
       {
-        name: 'styles',
+        name: 'front',
         input: `${assetsPath}/scss`
       },
       {
-        name: 'styles-editor',
+        name: 'editor',
         input: `${assetsPath}/scss`
       },
       {
-        name: 'wp-admin',
+        name: 'admin',
         input: `${assetsPath}/scss`
       },
     ],
@@ -96,17 +100,7 @@ const filesToEdit = [
         to: ''
       }
     ]
-  },
-  // Change development variable when vite is building (to see the production build)
-  {
-    filePath: resolve(__dirname, 'wp-config.php'),
-    replace: [
-      {
-        from: /\bdefine\([ ]?'IS_VITE_DEVELOPMENT',[ ]?true[ ]?\);/g,
-        to: "define('IS_VITE_DEVELOPMENT', false);"
-      }
-    ]
-  },
+  }
 ]
 
 /*
@@ -214,11 +208,11 @@ if (entryFiles.length) {
           }
 
           // SCSS compilation
-          if (chore === undefined || chore === 'all' || chore.includes('scss')) {
-            if (!entriesToCompile.includes(`${file.input}/${file.name}.scss`)) {
-              entriesToCompile.push(`${file.input}/${file.name}.scss`)
-            }
-          }
+          // if (chore === undefined || chore === 'all' || chore.includes('scss')) {
+          //   if (!entriesToCompile.includes(`${file.input}/${file.name}.scss`)) {
+          //     entriesToCompile.push(`${file.input}/${file.name}.scss`)
+          //   }
+          // }
         })
       }
 
@@ -250,8 +244,28 @@ if (entryFiles.length) {
   })
 }
 
-// Change development constant when vite is on watch mode
-if (!isProduction) {
+/*
+|--------------------------------------------------------------------------
+| Replace in file
+|--------------------------------------------------------------------------
+|
+| Replace string in file
+| Change vite constant in watch
+| Change vite constant in build
+|
+*/
+if (isProduction) {
+  stringReplaceOpenAndWrite(
+    resolve(__dirname, 'wp-config.php'),
+    [
+      {
+        from: /\bdefine\([ ]?'IS_VITE_DEVELOPMENT',[ ]?true[ ]?\);/g,
+        to: "define('IS_VITE_DEVELOPMENT', false);"
+      }
+    ]
+  )
+
+} else {
   stringReplaceOpenAndWrite(
     resolve(__dirname, 'wp-config.php'),
     [
@@ -294,8 +308,8 @@ export default defineConfig({
   base: isProduction ? './' : url, // Url to apply refresh
   // root: themePath,
   plugins: [
-    isProduction
-      ? viteStringReplace(filesToEdit)
+    isProduction && chore === 'all'
+      ? stringReplace(filesToEdit)
       : false,
 
     isProduction
@@ -335,7 +349,7 @@ export default defineConfig({
             : false
         ].filter(Boolean)
       })
-      : false,
+      : false
   ].filter(Boolean),
 
   build: {

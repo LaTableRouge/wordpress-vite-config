@@ -4,12 +4,16 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+define('THEME_VERSION', time());
+define('VITE_SERVER', 'http://localhost:5173');
+define('DIST_FOLDER', 'build');
+
 require get_stylesheet_directory() . '/inc/vite.php';
 // Front assets
-vite_enqueue_script('assets/js/scripts.js', 'wp_footer', 'wp_enqueue_scripts');
-vite_enqueue_style('assets/scss/styles.scss', 'wp_head', 'wp_enqueue_scripts');
+vite_enqueue_script('assets/js/front.js', 'wp_enqueue_scripts', 'wp_footer');
+
+// Editor assets
+vite_enqueue_script('assets/js/editor.js', 'enqueue_block_editor_assets');
+
 // Admin assets
-vite_enqueue_script('assets/js/wp-admin.js', 'admin_footer', 'admin_enqueue_scripts');
-vite_enqueue_style('assets/scss/wp-admin.scss', 'admin_head', 'admin_enqueue_scripts');
-// Editor assets (build to see the css in editor)
-vite_enqueue_style_editor('assets/scss/styles-editor.scss', 'after_setup_theme');
+vite_enqueue_script('assets/js/admin.js', 'admin_enqueue_scripts', 'admin_footer');

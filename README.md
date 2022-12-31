@@ -55,9 +55,7 @@ Require the [vite.php](./wp-content/themes/my-theme/inc/vite.php) file.
 
 Call the assets you want to call in your website with the following functions : 
 
-- vite_enqueue_script('path_to_your_asset_script_file', 'hook_when_dev', 'hook_when_prod');
-- vite_enqueue_style('path_to_your_asset_style_file', 'hook_when_dev', 'hook_when_prod');
-- vite_enqueue_style_editor('path_to_your_asset_style-editor_file', 'hook');
+- vite_enqueue_script('path_to_your_asset_script_file','hook_when_prod', 'hook_when_dev');
 
 <br/>
 

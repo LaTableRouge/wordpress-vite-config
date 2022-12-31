@@ -1,9 +1,6 @@
 @charset "UTF-8";
 
 @import './abstracts/variables';
-$fonts-path: $fonts-path-editor;
-$pictures-path: $pictures-path-editor;
-
 @import './base/fonts';
 
 h1 {

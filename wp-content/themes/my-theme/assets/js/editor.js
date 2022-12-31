@@ -1,4 +1,4 @@
-import '../scss/wp-admin.scss' // mandatory for Hot Module Reload
+import '../scss/editor.scss' // mandatory for Hot Module Reload
 
 // Gutenberg ready
 if (document.querySelector('.block-editor__container')) {
@@ -9,6 +9,8 @@ if (document.querySelector('.block-editor__container')) {
       blockLoaded = true
 
       // DO CODE HERE
+
+      console.log('editor script called')
     }
 
     if (blockLoaded) {
