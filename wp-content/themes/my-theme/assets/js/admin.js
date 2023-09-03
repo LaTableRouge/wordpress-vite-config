@@ -1,3 +1,5 @@
 import '../scss/admin.scss' // mandatory for Hot Module Reload
 
-console.log('admin script called')
+window.addEventListener('DOMContentLoaded', (e) => {
+    console.log('admin script called')
+})

@@ -4,8 +4,8 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('DIST_URI', get_stylesheet_directory_uri() . '/' . DIST_FOLDER);
-define('DIST_PATH', get_stylesheet_directory() . '/' . DIST_FOLDER);
+define('DIST_URI', get_template_directory_uri() . '/' . DIST_FOLDER);
+define('DIST_PATH', get_template_directory() . '/' . DIST_FOLDER);
 
 function vite_fetch_asset_from_manifest($fileThemePath, $assetType) {
     $returnedArray = [];
@@ -56,12 +56,15 @@ function vite_fetch_asset_from_manifest($fileThemePath, $assetType) {
 function vite_enqueue_dev_dependencies() {
     wp_enqueue_script('jquery');
     wp_enqueue_script('wp-i18n');
-    wp_enqueue_script('acf-input');
     echo "<script>
             const wp_params = {
                 ajax_url: '" . admin_url('admin-ajax.php') . "',
-                stylesheet_directory: '" . get_stylesheet_directory_uri() . "',
-                rest_url: '" . get_rest_url(null, '/wp/v2') . "'
+                rest_url: '" . esc_url_raw(get_rest_url(null, '/wp/v2')) . "',
+                rest_nonce: '" . wp_create_nonce('wp_rest') . "',
+                stylesheet_directory: '" . get_template_directory_uri() . "',
+                plugins_directory: '" . plugins_url() . "',
+                pictures_directory: '" . get_template_directory_uri() . PICTURE_FOLDER . "',
+                posts_per_page: '" . get_option('posts_per_page') . "'
             }
         </script>";
 }
@@ -71,13 +74,18 @@ function vite_enqueue_style($fileThemePath, $hookBuild, $hookDev = false) {
         $hookDev = $hookBuild;
     }
 
+    $adminAsset = str_contains($hookBuild, 'admin') || str_contains($hookBuild, 'block') || str_contains($hookBuild, 'editor');
+    if ($adminAsset && !is_admin()) {
+        return;
+    }
+
     if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT === true) {
         /*
         * ================================ Inject assets in DOM
         * insert link tag for styles
         */
         add_action($hookDev, function () use ($fileThemePath) {
-            echo '<link rel="stylesheet" href="' . VITE_SERVER . strstr(get_stylesheet_directory(), '/wp-content') . '/' . $fileThemePath . '">';
+            echo '<link rel="stylesheet" href="' . VITE_SERVER . strstr(get_template_directory(), '/wp-content') . '/' . $fileThemePath . '">';
         });
     } else {
         /*
@@ -109,6 +117,11 @@ function vite_enqueue_script($fileThemePath, $hookBuild, $hookDev = false, $foot
         $hookDev = $hookBuild;
     }
 
+    $adminAsset = str_contains($hookBuild, 'admin') || str_contains($hookBuild, 'block') || str_contains($hookBuild, 'editor');
+    if ($adminAsset && !is_admin()) {
+        return;
+    }
+
     if (defined('IS_VITE_DEVELOPMENT') && IS_VITE_DEVELOPMENT === true) {
         /*
         * ================================ Inject assets in DOM
@@ -116,7 +129,7 @@ function vite_enqueue_script($fileThemePath, $hookBuild, $hookDev = false, $foot
         */
         add_action($hookDev, 'vite_enqueue_dev_dependencies');
         add_action($hookDev, function () use ($fileThemePath) {
-            echo '<script type="module" crossorigin src="' . VITE_SERVER . strstr(get_stylesheet_directory(), '/wp-content') . '/' . $fileThemePath . '"></script>';
+            echo '<script type="module" crossorigin src="' . VITE_SERVER . strstr(get_template_directory(), '/wp-content') . '/' . $fileThemePath . '"></script>';
         });
     } else {
         /*
@@ -152,9 +165,18 @@ function vite_enqueue_script($fileThemePath, $hookBuild, $hookDev = false, $foot
                     wp_register_script(
                         $fileSlug,
                         $filePath,
-                        ['jquery', 'wp-i18n', 'acf-input'], // Libraries to use
+                        ['jquery', 'wp-i18n'], // Libraries to use
                         THEME_VERSION,
-                        $footerEnqueue
+                        [
+                            'in_footer' => $footerEnqueue,
+                            'strategy' => 'defer'
+                        ]
+                    );
+
+                    wp_set_script_translations(
+                        $fileSlug,
+                        'highfive',
+                        get_template_directory() . '/lang'
                     );
 
                     wp_localize_script(
@@ -162,8 +184,12 @@ function vite_enqueue_script($fileThemePath, $hookBuild, $hookDev = false, $foot
                         'wp_params',
                         [
                             'ajax_url' => admin_url('admin-ajax.php'),
-                            'rest_url' => get_rest_url(null, '/wp/v2'),
-                            'stylesheet_directory' => get_stylesheet_directory_uri()
+                            'rest_url' => esc_url_raw(get_rest_url(null, '/wp/v2')),
+                            'rest_nonce' => wp_create_nonce('wp_rest'),
+                            'stylesheet_directory' => get_template_directory_uri(),
+                            'plugins_directory' => plugins_url(),
+                            'pictures_directory' => get_template_directory_uri() . PICTURE_FOLDER,
+                            'posts_per_page' => get_option('posts_per_page'),
                         ]
                     );
 

@@ -16,10 +16,18 @@ $rules = [
     'blank_line_before_statement' => [
         'statements' => ['return']
     ],
-    'braces' => [
-        'allow_single_line_closure' => true,
-        'position_after_functions_and_oop_constructs' => 'same',
+    'single_space_around_construct' => true,
+    'control_structure_braces' => true,
+    'curly_braces_position' => [
+        'functions_opening_brace' => 'same_line',
+        'control_structures_opening_brace' => 'same_line',
+        'anonymous_functions_opening_brace' => 'same_line',
+        'classes_opening_brace' => 'same_line',
+        'anonymous_classes_opening_brace' => 'same_line',
     ],
+    'declare_parentheses' => true,
+    'statement_indentation' => true,
+    'no_multiple_statements_per_line' => true,
     'cast_spaces' => [
         'space' => 'single'
     ],
@@ -74,8 +82,7 @@ $rules = [
     'no_singleline_whitespace_before_semicolons' => true,
     'no_spaces_after_function_name' => true,
     'no_spaces_around_offset' => true,
-    'no_spaces_inside_parenthesis' => true,
-    'no_trailing_comma_in_singleline_array' => true,
+    'no_trailing_comma_in_singleline' => true,
     'no_trailing_whitespace' => true,
     'no_trailing_whitespace_in_comment' => true,
     'no_unneeded_control_parentheses' => true,
@@ -95,6 +102,7 @@ $rules = [
     ],
     'single_quote' => true,
     'space_after_semicolon' => true,
+    'spaces_inside_parentheses' => false,
     'standardize_not_equals' => true,
     'switch_case_semicolon_to_colon' => true,
     'switch_case_space' => true,
@@ -117,3 +125,4 @@ return $config->setFinder($finder)
     ->setRules($rules)
     ->setRiskyAllowed(true)
     ->setUsingCache(true);
+

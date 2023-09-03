@@ -1,82 +1,102 @@
 {
     "extends": [
-        "stylelint-config-sass-guidelines",
-        "stylelint-config-property-sort-order-smacss"
+      "stylelint-config-property-sort-order-smacss",
+      "stylelint-config-sass-guidelines"
     ],
     "plugins": [
-        "stylelint-order"
+      "stylelint-order"
     ],
     "rules": {
-        "block-no-empty": true,
-        "color-named": null,
-        "declaration-property-value-disallowed-list": null,
-        "max-nesting-depth": null,
-        "order/properties-alphabetical-order": null,
-        "property-no-unknown": null,
-        "property-no-vendor-prefix": null,
-        "scss/at-function-pattern": null,
-        "scss/at-mixin-pattern": null,
-        "scss/at-import-partial-extension-blacklist": null,
-        "scss/dollar-variable-pattern": null,
-        "scss/percent-placeholder-pattern": null,
-        "scss/at-extend-no-missing-placeholder": null,
-        "scss/selector-no-redundant-nesting-selector": null,
-        "selector-class-pattern": null,
-        "selector-max-compound-selectors": null,
-        "selector-max-id": null,
-        "selector-no-qualifying-type": null,
-        "shorthand-property-no-redundant-values": null,
-        "value-no-vendor-prefix": null,
-        "at-rule-empty-line-before": [
-            "always",
-            {
-                "except": [
-                    "blockless-after-same-name-blockless"
-                ],
-                "ignore": [
-                    "after-comment",
-                    "first-nested"
-                ],
-                "severity": "warning"
-            }
-        ],
-        "custom-property-empty-line-before": [
-            "always",
-            {
-                "except": [
-                    "after-custom-property"
-                ],
-                "ignore": [
-                    "after-comment",
-                    "first-nested",
-                    "inside-single-line-block"
-                ],
-                "severity": "warning"
-            }
-        ],
-        "declaration-empty-line-before": [
-            "always",
-            {
-                "except": [
-                    "after-declaration"
-                ],
-                "ignore": [
-                    "after-comment",
-                    "first-nested",
-                    "inside-single-line-block"
-                ],
-                "severity": "warning"
-            }
-        ],
-        "rule-empty-line-before": [
-            "always",
-            {
-                "ignore": [
-                    "after-comment",
-                    "first-nested"
-                ],
-                "severity": "warning"
-            }
-        ]
+      "at-rule-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "blockless-after-same-name-blockless"
+          ],
+          "ignore": [
+            "after-comment",
+            "first-nested"
+          ],
+          "ignoreAtRules": [
+            "else",
+            "if"
+          ],
+          "severity": "warning"
+        }
+      ],
+      "block-no-empty": true,
+      "color-named": null,
+      "custom-property-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "after-custom-property"
+          ],
+          "ignore": [
+            "after-comment",
+            "first-nested",
+            "inside-single-line-block"
+          ],
+          "severity": "warning"
+        }
+      ],
+      "declaration-empty-line-before": [
+        "always",
+        {
+          "except": [
+            "after-declaration"
+          ],
+          "ignore": [
+            "after-comment",
+            "first-nested",
+            "inside-single-line-block"
+          ],
+          "severity": "warning"
+        }
+      ],
+      "declaration-no-important": [
+        true,
+        {
+          "message": "Do you really need this to be important ? 🤔",
+          "severity": "warning"
+        }
+      ],
+      "declaration-property-value-disallowed-list": null,
+      "max-nesting-depth": null,
+      "order/properties-alphabetical-order": null,
+      "property-no-unknown": null,
+      "property-no-vendor-prefix": null,
+      "rule-empty-line-before": [
+        "always",
+        {
+          "ignore": [
+            "after-comment",
+            "first-nested"
+          ],
+          "severity": "warning"
+        }
+      ],
+      "scss/at-extend-no-missing-placeholder": null,
+      "scss/at-function-pattern": null,
+      "scss/at-import-partial-extension-blacklist": null,
+      "scss/at-mixin-pattern": null,
+      "scss/dollar-variable-pattern": null,
+      "scss/no-global-function-names": null,
+      "scss/percent-placeholder-pattern": null,
+      "scss/selector-no-redundant-nesting-selector": null,
+      "selector-class-pattern": null,
+      "selector-disallowed-list": [
+        "/\\*/",
+        {
+          "message": "The universal selector (*) is known to be slow 🦥",
+          "severity": "warning"
+        }
+      ],
+      "selector-max-compound-selectors": null,
+      "selector-max-id": null,
+      "selector-no-qualifying-type": null,
+      "shorthand-property-no-redundant-values": null,
+      "value-no-vendor-prefix": null
     }
-}
+  }
+  
