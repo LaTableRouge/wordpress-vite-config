@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+@use './abstracts/variables' as *;
+@use './base/fonts';
+
+body {
+	position: relative;
+	background-color: purple !important;
+	font-family: 'Calibri';
+
+	&::before {
+		content: '';
+		position: absolute;
+		width: 300px;
+		height: 400px;
+		background-image: url('#{$pictures-path}/woocommerce-placeholder.webp');
+		background-position: center;
+	}
+}

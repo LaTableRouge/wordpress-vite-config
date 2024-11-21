@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+@use './abstracts/variables' as *;
+@use './base/fonts';
+
+.editor-styles-wrapper {
+	h1,
+	h2,
+	h3,
+	h4 {
+		position: relative;
+		background-color: green !important;
+		font-family: 'Calibri';
+
+		&::before {
+			content: '';
+			position: absolute;
+			width: 300px;
+			height: 400px;
+			background-image: url('#{$pictures-path}/woocommerce-placeholder.webp');
+			background-position: center;
+		}
+	}
+}

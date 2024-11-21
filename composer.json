@@ -1,12 +1,18 @@
 {
-    "authors": [
-        {
-            "name": "VDIANA DEV",
-            "homepage": "https://mlnop.fr",
-            "role": "Main dev"
-        }
-    ],
-    "require-dev": {
-        "friendsofphp/php-cs-fixer": "v3.25.0"
-    }
+	"authors": [
+		{
+			"name": "LaTableRouge",
+			"homepage": "https://mlnop.fr",
+			"role": "Simple man"
+		}
+	],
+	"require-dev": {
+		"friendsofphp/php-cs-fixer": "v3.64.0",
+		"wp-cli/wp-cli-bundle": "v2.11.0"
+	},
+	"scripts": {
+		"lint:php": [
+			"vendor/bin/php-cs-fixer.bat fix -v --show-progress=dots --using-cache=no --config=.php-cs-fixer.php functions.php inc"
+		]
+	}
 }
